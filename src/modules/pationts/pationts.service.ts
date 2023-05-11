@@ -26,7 +26,7 @@ export class PationtsService {
 
   async save(pationt: Pationt): Promise<string> {
     const checkPationt= await this.pationtsRepository.findOneBy({ id: pationt.id });
-    if(pationt) {
+    if(checkPationt) {
       throw new BadRequestException(`Pation with id ${pationt.id} already exist`);
     }
     const pationtResponse = await this.pationtsRepository.save(pationt)
