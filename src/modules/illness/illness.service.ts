@@ -23,7 +23,7 @@ export class IllnessService {
   }
 
   async getByPationtId(id: number): Promise<Illness>{
-    if(!this.isPationtExist(id)) {
+    if(!(await this.isPationtExist(id))) {
       throw new BadRequestException(`Patient with id ${id} dosen't exist`);
     }
 
@@ -31,7 +31,7 @@ export class IllnessService {
   }
 
   async saveIllness(illness: Illness): Promise<string> {
-    if(!this.isPationtExist(illness.pationtId)) {
+    if(!(await this.isPationtExist(illness.pationtId))) {
       throw new BadRequestException(`Patient with id ${illness.pationtId} dosen't exist`);
     }
     

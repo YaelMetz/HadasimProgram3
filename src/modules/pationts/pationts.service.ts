@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pationt } from './pationt.entity';
 
-
 @Injectable()
 export class PationtsService {
   constructor(
@@ -26,10 +25,10 @@ export class PationtsService {
 
 
   async save(pationt: Pationt): Promise<string> {
-   // const checkPationt= await this.pationtsRepository.findOneBy({ id: pationt.id });
-   // if(pationt) {
-  //    throw new BadRequestException(`Pation with id ${pationt.id} already exist`);
-  //  }
+    const checkPationt= await this.pationtsRepository.findOneBy({ id: pationt.id });
+    if(pationt) {
+      throw new BadRequestException(`Pation with id ${pationt.id} already exist`);
+    }
     const pationtResponse = await this.pationtsRepository.save(pationt)
     return "Pationt with id " + pationt.id + " added successfully";
   }

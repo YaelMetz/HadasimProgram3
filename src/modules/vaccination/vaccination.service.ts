@@ -24,7 +24,7 @@ export class VaccinationService {
 
 
   async getByPationtId(pationtId: number): Promise<Array<Vaccination>> {
-    if(!this.isPationtExist(pationtId)) {
+    if(!(await this.isPationtExist(pationtId))) {
       throw new BadRequestException(`Pationt with id ${pationtId} dosen't exist`);
     }
     return await this.vaccinationRepository.findBy({ pationtId: pationtId });
@@ -32,7 +32,7 @@ export class VaccinationService {
 
 
   async saveVaccination(vaccination: Vaccination): Promise<string> {
-    if(!this.isPationtExist(vaccination.pationtId)) {
+    if(!(await this.isPationtExist(vaccination.pationtId))) {
       throw new BadRequestException(`Pation with id ${vaccination.pationtId} dosent exist`);
     }
 
